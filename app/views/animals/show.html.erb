@@ -15,5 +15,35 @@
   <%= @animal.kingdom %>
 </p>
 
+<p>
+  <strong>Sightings:</strong>
+  <% @sightings = Sighting.where(animal: [@animal.id]) %>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @sightings.each do |sighting| %>
+        <tr>
+          <td><%= sighting.date %></td>
+          <td><%= sighting.time %></td>
+          <td><%= sighting.latitude %></td>
+          <td><%= sighting.longitude %></td>
+          <td><%= link_to 'Show', sighting %></td>
+          <td><%= link_to 'Edit', edit_sighting_path(sighting) %></td>
+          <td><%= link_to 'Destroy', sighting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</p>
+
 <%= link_to 'Edit', edit_animal_path(@animal) %> |
 <%= link_to 'Back', animals_path %>
